@@ -30,6 +30,17 @@ pipeline
 					archiveArtifacts artifacts: 'target/*.war'
 					
 					
+					echo '************Copying the war file to War Git working directory ************'
+					sh 'cp target/*.war /home/kovair/DevOpsApplicationWar'
+					
+					echo '************ Pushing the war files to ssh://kovair@192.168.11.90:22//home/kovair/MyGitFiles/ApplicationWarRepository.git ************' 
+					sh '''cd /home/kovair/DevOpsApplicationWar
+					git add .
+					git commit -m "War updated"
+					git push origin master'''
+					
+					
+					
 					/*
 					echo '************Copying the war file to Chef Deployment directory************'
 					sh 'cp target/*.war /home/kovair/chef-repo/cookbooks/deploy_to_vm/files/default'
