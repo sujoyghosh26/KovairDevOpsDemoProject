@@ -30,6 +30,7 @@ pipeline
 					archiveArtifacts artifacts: 'target/*.war'
 					
 					
+					/*
 					echo '************Copying the war file to Chef Deployment directory************'
 					sh 'cp target/*.war /home/kovair/chef-repo/cookbooks/deploy_to_vm/files/default'
 					
@@ -37,6 +38,8 @@ pipeline
 					sh '''cd /home/kovair/chef-repo
 							knife cookbook upload deploy_to_vm
 							knife bootstrap 192.168.11.100 -x kovair -P kovair@123 --sudo --node-name nodeVMDeploy --run-list \'recipe[deploy_to_vm]\' -y'''
+							
+				    */
 
 				}
 			}
