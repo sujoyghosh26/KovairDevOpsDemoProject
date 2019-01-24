@@ -21,11 +21,7 @@ pipeline
 				
                 }
 				
-				withCredentials([sshUserPrivateKey(credentialsId: 'dc8a4f0d-fc8c-406d-aba0-34304d41de78', keyFileVariable: '', passphraseVariable: '', usernameVariable: '')])
-                {
-					// some block
-					
-				}
+				
 			}
 			
 			post
@@ -46,7 +42,9 @@ pipeline
 					
 					echo '************ Pushing the war files to ssh://kovair@192.168.11.90:22//home/kovair/MyGitFiles/ApplicationWarRepository.git ************' 
 					
-					
+					withCredentials([string(credentialsId: 'dc8a4f0d-fc8c-406d-aba0-34304d41de78', variable: '')]) {
+				         
+				    }
 						
 						
                     
