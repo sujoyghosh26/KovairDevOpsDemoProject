@@ -48,13 +48,7 @@ pipeline
                     withCredentials([sshUserPrivateKey(credentialsId: 'dc8a4f0d-fc8c-406d-aba0-34304d41de78', keyFileVariable: '', passphraseVariable: '', usernameVariable: '')])
                     {
 						// some block
-						sh '''cd /home/kovair/DevOpsApplicationWar
-						git config --global user.email "prasenjit@gmail.com"
-	  					git config --global user.name "Prasenjit"
-						git add .
-						git commit -m "War updated."
 						
-						git push origin master'''
 					}
 					
 	                
