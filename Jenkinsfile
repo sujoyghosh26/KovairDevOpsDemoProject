@@ -35,6 +35,8 @@ pipeline
 					
 					echo '************ Pushing the war files to ssh://kovair@192.168.11.90:22//home/kovair/MyGitFiles/ApplicationWarRepository.git ************' 
 					sh '''cd /home/kovair/DevOpsApplicationWar
+					git config --global user.email "prasenjit@gmail.com"
+  					git config --global user.name "Prasenjit"
 					git add .
 					git commit -m "War updated."
 					git push origin master'''
