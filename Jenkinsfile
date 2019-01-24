@@ -6,6 +6,9 @@ pipeline
 		stage('build')
 		{
 			agent { label 'master' }
+			environment {
+			    GITSCMCredentials = credentials('dc8a4f0d-fc8c-406d-aba0-34304d41de78')
+			}
 			steps
 			{
 				git 'https://github.com/prasenjitkovair/DevOpsDemoApp.git'
@@ -33,14 +36,30 @@ pipeline
 					echo '************Copying the war file to War Git working directory ************'
 					sh 'cp target/*.war /home/kovair/DevOpsApplicationWar'
 					
-					echo '************ Pushing the war files to ssh://kovair@192.168.11.90:22//home/kovair/MyGitFiles/ApplicationWarRepository.git ************' 
-					sh '''cd /home/kovair/DevOpsApplicationWar
-					git config --global user.email "prasenjit@gmail.com"
-  					git config --global user.name "Prasenjit"
-					git add .
-					git commit -m "War updated."
 					
-					git push origin master'''
+					
+					
+					
+					echo '************ Pushing the war files to ssh://kovair@192.168.11.90:22//home/kovair/MyGitFiles/ApplicationWarRepository.git ************' 
+					
+					script {
+						
+						
+	                    withCredentials([sshUserPrivateKey(credentialsId: 'dc8a4f0d-fc8c-406d-aba0-34304d41de78', keyFileVariable: '', passphraseVariable: '', usernameVariable: '')])
+	                    {
+    						// some block
+    						sh '''cd /home/kovair/DevOpsApplicationWar
+							git config --global user.email "prasenjit@gmail.com"
+		  					git config --global user.name "Prasenjit"
+							git add .
+							git commit -m "War updated."
+							
+							git push origin master'''
+						}
+					
+	                }
+					
+					
 					
 					
 					
