@@ -1,4 +1,4 @@
-package com.kovair.devops; 
+package com.kovair.devops;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -20,7 +20,9 @@ public class WebAppInitializer implements WebApplicationInitializer {
 		
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("DispatcherServlet", new DispatcherServlet(context));
 		dispatcher.setLoadOnStartup(1);
-		dispatcher.addMapping("*.html");
+		dispatcher.addMapping("/");
+		//dispatcher.addMapping("*.jsp");
+		//dispatcher.addMapping("*.html");
 		dispatcher.addMapping("*.js");
 		dispatcher.addMapping("*.css");
 		dispatcher.addMapping("*.json");

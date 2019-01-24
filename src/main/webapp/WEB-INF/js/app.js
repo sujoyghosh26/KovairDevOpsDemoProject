@@ -1,4 +1,5 @@
 angular.module('DevOpsDemoApp', [
   'DevOpsDemoApp.controllers',
-  'DevOpsDemoApp.services'
+  'DevOpsDemoApp.services',
+  'ui.grid',
 ]);

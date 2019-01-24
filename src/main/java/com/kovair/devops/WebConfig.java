@@ -12,28 +12,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.kovair.devops")
 public class WebConfig extends WebMvcConfigurerAdapter {
-	
-	/*
-	@Bean
-	public MessageSource messageSource() {
-		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-		messageSource.addBasenames("messages");
-		return messageSource;
-	}
-	
-	@Bean
-	public LocaleResolver localResolver() {
-		SessionLocaleResolver resolver = new SessionLocaleResolver();
-		resolver.setDefaultLocale(Locale.ENGLISH);
-		return resolver;
-	}
-	
-	@Override
-	public void addInterceptors(InterceptorRegistry registry){
-		LocaleChangeInterceptor changeInterceptor = new LocaleChangeInterceptor();
-		changeInterceptor.setParamName("language");
-		registry.addInterceptor(changeInterceptor);
-	}*/
+
 	
 	@Bean
 	public InternalResourceViewResolver getInternalResourceViewResolver() {

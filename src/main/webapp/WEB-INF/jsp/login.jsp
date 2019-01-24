@@ -29,14 +29,21 @@
                 <div class="form-group">
                   <label class="control-label col-sm-4" for="UserId">User ID:</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" data-ng-model="user.userName" id="txtUserId" name="userName" placeholder="Enter User Id Here" />
+                    <input type="text" class="form-control" data-ng-model="user.UserName" id="txtUserId" name="userName" required alphabatic-character alphaspace-Character placeholder="Enter User Id Here" maxlength="30" />
+                    <span style="color:red" data-ng-show="(loginform.userName.$dirty || loginform.userName.$touched) && loginform.userName.$invalid">
+                        <span data-ng-show="loginform.userName.$error.required">User Name is required.</span>
+                        <span data-ng-show="loginform.userName.$error.alphabaticalError" data-ng-hide="loginform.userName.$error.nameError || loginform.userName.$error.required">User Name should only contain alphabetic characters.</span>
+                        <span data-ng-show="loginform.userName.$error.nameError">User Name should not contain whitespace.</span>
+                     </span>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="control-label col-sm-4" for="Password">Password:</label>
                   <div class="col-sm-6">
-                    <input type="password" class="form-control" data-ng-model="user.password" id="txtPassword" name="password" placeholder="Enter Password Here" />
-
+                    <input type="password" class="form-control" data-ng-model="user.Password" id="txtPassword" name="password" required placeholder="Enter Password Here" maxlength="20" />
+					<span style="color:red" data-ng-show="(loginform.password.$dirty || loginform.password.$touched) && loginform.password.$invalid">
+                        <span data-ng-show="loginform.password.$error.required">Password is required.</span>
+                     </span>
                   </div>
                 </div>
                 <div class="form-group">

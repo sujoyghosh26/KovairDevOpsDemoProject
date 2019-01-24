@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +6,14 @@
 <script src="scripts/angular.js"></script>
 <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="css/LoginPage.css" type="text/css" />
+<script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+<script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+<script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.0.6/ui-grid.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.0.6/ui-grid.css"  type="text/css"/>
 <script src="js/app.js"></script>
+<script src="js/controller.js"></script>
+<script src="js/service.js"></script>
 </head>
 <body data-ng-app="DevOpsDemoApp">
   <div class="wrapper">
@@ -27,14 +32,21 @@
                 <div class="form-group">
                   <label class="control-label col-sm-4" for="UserId">User ID:</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" data-ng-model="user.userName" id="txtUserId" name="userName" placeholder="Enter User Id Here" />
+                    <input type="text" class="form-control" data-ng-model="user.userName" id="txtUserId" name="userName" required alphabatic-character alphaspace-Character placeholder="Enter User Id Here" maxlength="30" />
+                    <span style="color:red" data-ng-show="(loginform.userName.$dirty || loginform.userName.$touched) && loginform.userName.$invalid">
+                        <span data-ng-show="loginform.userName.$error.required">User Name is required.</span>
+                        <span data-ng-show="loginform.userName.$error.alphabaticalError" data-ng-hide="loginform.userName.$error.nameError || loginform.userName.$error.required">User Name should only contain alphabetic characters.</span>
+                        <span data-ng-show="loginform.userName.$error.nameError">User Name should not contain whitespace.</span>
+                     </span>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="control-label col-sm-4" for="Password">Password:</label>
                   <div class="col-sm-6">
-                    <input type="password" class="form-control" data-ng-model="user.password" id="txtPassword" name="password" placeholder="Enter Password Here" />
-
+                    <input type="password" class="form-control" data-ng-model="user.password" id="txtPassword" name="password" required placeholder="Enter Password Here" maxlength="20" />
+					<span style="color:red" data-ng-show="(loginform.password.$dirty || loginform.password.$touched) && loginform.password.$invalid">
+                        <span data-ng-show="loginform.password.$error.required">Password is required.</span>
+                     </span>
                   </div>
                 </div>
                 <div class="form-group">
@@ -49,6 +61,9 @@
                   <div class="col-sm-offset-4 col-sm-8">
                     <button id="btnClick" type="submit" class="btn btn-primary btn-md" data-ng-click="login()">Login</button>
                   </div>
+                  <span style="color:red">
+                       <span data-ng-show="inValidLogin">{{errorMsg}}</span>
+                   </span>
                 </div>
               </form>
             </div>
