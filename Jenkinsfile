@@ -6,9 +6,7 @@ pipeline
 		stage('build')
 		{
 			agent { label 'master' }
-			environment {
-			    GITSCMCredentials = credentials('dc8a4f0d-fc8c-406d-aba0-34304d41de78')
-			}
+			
 			steps
 			{
 				git 'https://github.com/prasenjitkovair/DevOpsDemoApp.git'
