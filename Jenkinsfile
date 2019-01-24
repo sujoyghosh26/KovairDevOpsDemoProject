@@ -8,7 +8,7 @@ pipeline
 			agent { label 'master' }
 			steps
 			{
-				git 'https://github.com/prasenitkovair/DevOpsDemoApp.git'
+				git 'https://github.com/prasenjitkovair/DevOpsDemoApp.git'
 				
 				script {
                     def mvn_version = 'maven_3_5_4'
