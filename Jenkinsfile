@@ -21,7 +21,11 @@ pipeline
 				
                 }
 				
-				
+				withCredentials([sshUserPrivateKey(credentialsId: 'dc8a4f0d-fc8c-406d-aba0-34304d41de78', keyFileVariable: '', passphraseVariable: '', usernameVariable: '')])
+                {
+					// some block
+					
+				}
 			}
 			
 			post
@@ -45,11 +49,7 @@ pipeline
 					
 						
 						
-                    withCredentials([sshUserPrivateKey(credentialsId: 'dc8a4f0d-fc8c-406d-aba0-34304d41de78', keyFileVariable: '', passphraseVariable: '', usernameVariable: '')])
-                    {
-						// some block
-						
-					}
+                    
 					
 	                
 					
