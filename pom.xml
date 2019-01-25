@@ -55,7 +55,7 @@
 	    </dependency>
   </dependencies>
   <build>
-    <finalName>KovairDevOpsSpringWebapp</finalName>
+    <finalName>DevOpsDemoApplication</finalName>
     <pluginManagement>
 			<plugins>
 				<plugin>
@@ -73,7 +73,7 @@
 					<version>2.4</version>
 					<configuration>
 						<warSourceDirectory>src/main/webapp</warSourceDirectory>
-						<warName>DevOps</warName>
+						<warName>DevOpsDemoApplication</warName>
 						<failOnMissingWebXml>false</failOnMissingWebXml>
 					</configuration>
 				</plugin>
