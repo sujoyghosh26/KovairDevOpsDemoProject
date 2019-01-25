@@ -9,7 +9,7 @@ pipeline
 			
 			steps
 			{
-				git 'https://github.com/prasenjitkovair/DevOpsDemoApp.git'
+				git 'ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/DevOpsDemoApplication.git'
 				
 				script {
                     def mvn_version = 'maven_3_5_4'
