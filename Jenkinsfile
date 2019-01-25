@@ -99,6 +99,8 @@ pipeline
 				sh '''
 				cd RobotTests
 				scl enable rh-python36 bash
+				python --version
+				robot --version
 				robot -d Results Tests/KovairDevOpsDemoApp.robot'''
 				
 				
