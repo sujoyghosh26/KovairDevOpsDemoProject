@@ -38,7 +38,7 @@ pipeline
 					
 					
 					
-					echo '************ Pushing the war files to ssh://kovair@192.168.11.90:22//home/kovair/MyGitFiles/ApplicationWarRepository.git ************' 
+					echo '************ Pushing the war files to ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/WarRepository.git ************' 
 					
 				    
 				    sh '''
@@ -46,7 +46,6 @@ pipeline
 				        cd /home/kovair/ApplicationWar/
 						git add .
 						git commit -m "War updated."
-						git remote add origin ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/WarRepository.git
 						git push origin master
 						
 						'''
