@@ -40,22 +40,49 @@ pipeline
 					
 					echo '************ Pushing the war files to ssh://kovair@192.168.11.90:22//home/kovair/MyGitFiles/ApplicationWarRepository.git ************' 
 					
-					git credentialsId: "dc8a4f0d-fc8c-406d-aba0-34304d41de78", url: "ssh://kovair@192.168.11.90:22//home/kovair/MyGitFiles/ApplicationWarRepository.git"
-					git add .
-					git commit -m "War updated.."
-					git push origin master
+					
+					
+					
+					 withCredentials([[
+				            $class: 'BasicSSHUserPrivateKey',
+				            credentialsId: 'dc8a4f0d-fc8c-406d-aba0-34304d41de78'
+				            
+				        ]]) {
+				        
+				        
+				            sh '''cd /home/kovair/DevOpsApplicationWar
+							git add .
+							git commit -m "War updated."
+							git push origin master'''
+				            
+				            
+				            
+				        }
+				    }
+					
 					
 					
 					
 					/*
 					echo '************Copying the war file to Chef Deployment directory************'
 					sh 'cp target/*.war /home/kovair/chef-repo/cookbooks/deploy_to_vm/files/default'
+					knife cookbook upload deploy_to_vm
+					*/
 					
+					/*
 					echo '************Uploading Cookbook and deploying war file to VM***************'
 					sh '''cd /home/kovair/chef-repo
-							knife cookbook upload deploy_to_vm
-							knife bootstrap 192.168.11.100 -x kovair -P kovair@123 --sudo --node-name nodeVMDeploy --run-list \'recipe[deploy_to_vm]\' -y'''
 							
+							knife bootstrap 192.168.11.175 -x kovair -P kovair@123 --sudo --node-name nodeVMDeploy --run-list \'recipe[deploy_to_vm]\' -y'''
+							
+				    */
+				    
+				    
+				    /*
+				    echo '************Deploying the war file in Docker. To be kept after Test stage***************'
+				    knife bootstrap 192.168.11.109 -x kovair -P kovair@123 --sudo --node-name nodeDockerDeploy --run-list 'recipe[deploy_to_docker]' -y
+				    
+				    
 				    */
 
 				}
