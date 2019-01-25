@@ -93,7 +93,13 @@ pipeline
 			agent { label 'testnode' }
 			steps
 			{
-				echo 'testing..'
+				git 'ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/RobotRepository.git'
+				
+				echo '*****************Starting robot tests*******************'
+				sh '''scl enable rh-python36 bash
+				robot -d Results Tests/KovairDevOpsDemoApp.robot'''
+				
+				
 			}
 		}
 	}
