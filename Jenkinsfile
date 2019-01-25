@@ -47,7 +47,8 @@ pipeline
 				            $class: 'BasicSSHUserPrivateKey',
 				            credentialsId: 'dc8a4f0d-fc8c-406d-aba0-34304d41de78'
 				            
-				        ]]) {
+				        ]]) 
+				        {
 				        
 				        
 				            sh '''cd /home/kovair/DevOpsApplicationWar
@@ -58,7 +59,7 @@ pipeline
 				            
 				            
 				        }
-				    }
+				    
 					
 					
 					
