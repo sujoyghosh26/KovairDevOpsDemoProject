@@ -41,14 +41,14 @@ pipeline
 					echo '************ Pushing the war files to ssh://kovair@192.168.11.90:22//home/kovair/MyGitFiles/ApplicationWarRepository.git ************' 
 					
 				    
-					
-					
-					withCredentials(bindings: [sshUserPrivateKey(credentialsId: '9dd49f1e-5c57-4ee4-b97b-8e3fa8ed33d0', keyFileVariable: '', passphraseVariable: '', usernameVariable: '')]) {
-					    sh '''cd /home/kovair/DevOpsApplicationWar
+				    sh '''cd /home/kovair/DevOpsApplicationWar
 						git add .
 						git commit -m "War updated."
 						git push origin master'''
-				  }
+				    
+					
+					
+					
 					
 					
 					
