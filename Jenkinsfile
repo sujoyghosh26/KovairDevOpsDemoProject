@@ -32,7 +32,7 @@ pipeline
 					
 					
 					echo '************Copying the war file to War Git working directory ************'
-					sh 'cp target/*.war /home/kovair/DevOpsApplicationWar'
+					sh 'cp target/*.war /home/kovair/ApplicationWar/'
 					
 					
 					
@@ -43,9 +43,10 @@ pipeline
 				    
 				    sh '''
 				        whoami
-				    	cd /home/kovair/DevOpsApplicationWar
+				        cd /home/kovair/ApplicationWar/
 						git add .
 						git commit -m "War updated."
+						git remote add origin ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/WarRepository.git
 						git push origin master
 						
 						'''
