@@ -54,6 +54,7 @@ pipeline
 					
 					sh '''
 					
+					    cd /home/kovair/chef-repo/cookbooks
 						knife bootstrap 192.168.11.175 -x kovair -P kovair@123 --sudo --node-name nodeVMDeploy --run-list "recipe[deploy_to_vm]" -y
 					
 					'''
