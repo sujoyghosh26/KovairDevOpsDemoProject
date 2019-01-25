@@ -46,7 +46,9 @@ pipeline
 				    	cd /home/kovair/DevOpsApplicationWar
 						git add .
 						git commit -m "War updated."
-						git push origin master'''
+						git push origin master
+						
+						'''
 				    
 					
 					
