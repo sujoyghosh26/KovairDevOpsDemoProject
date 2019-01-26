@@ -3,13 +3,13 @@ pipeline
 	agent none
 	stages
 	{
-		stage('build')
+		stage('CheckOut and Build The Application')
 		{
 			agent { label 'master' }
 			
 			steps
 			{
-				git 'ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/DevOpsDemoApplication.git'
+				//git 'ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/DevOpsDemoApplication.git'
 				
 				script {
                     def mvn_version = 'maven_3_5_4'
@@ -27,39 +27,17 @@ pipeline
 				success {
 
 				
-					echo '************Archiving the Artifact..****************'
+					//echo '************Archiving the Artifact..****************'
 					archiveArtifacts artifacts: 'target/*.war'
-					
-					
-					echo '************Copying the war file to War Git working directory ************'
+					echo 'Copying the war file and pushing to War Repo'
 					sh 'cp target/*.war /home/kovair/ApplicationWar/'
-					
-					
-					
-					
-					
-					echo '************ Pushing the war files to ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/WarRepository.git ************' 
-					
-				    
+					//echo '************ Pushing the war files to ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/WarRepository.git ************' 
 				    sh '''
-				        whoami
 				        cd /home/kovair/ApplicationWar/
 						git add .
 						git commit -m "War updated."
 						git push origin master
 						
-						'''
-				    
-					echo '***************** Deploying the files to Deployment server using Chef  ******************'
-					
-					sh '''
-					
-					    cd /home/kovair/chef-repo/cookbooks
-						knife bootstrap 192.168.11.175 -x kovair -P kovair@123 --sudo --node-name nodeVMDeploy --run-list "recipe[deploy_to_vm]" -y
-					
-					'''
-					
-					
 					
 					/*
 					echo '************Copying the war file to Chef Deployment directory************'
@@ -75,28 +53,33 @@ pipeline
 							
 				    */
 				    
-				    
-				    /*
-				    echo '************Deploying the war file in Docker. To be kept after Test stage***************'
-				    knife bootstrap 192.168.11.109 -x kovair -P kovair@123 --sudo --node-name nodeDockerDeploy --run-list 'recipe[deploy_to_docker]' -y
-				    
-				    
-				    */
-
 				}
 			}
 			
 		}
 		
-		stage('test')
+		stage('Deploy Application on Tomcat')
+		{
+			agent { label 'master' }
+			steps
+			{
+				echo 'Deploying the files to Deployment server using Chef'
+				sh '''
+				    cd /home/kovair/chef-repo/cookbooks
+					knife bootstrap 192.168.11.175 -x kovair -P kovair@123 --sudo --node-name nodeVMDeploy --run-list "recipe[deploy_to_vm]" -y
+				'''
+			}
+		}
+		
+		
+		
+		stage('Test Application with Robot Framework')
 		{
 			agent { label 'testnode' }
 			steps
 			{
 			
-			    sh 'whoami'
-				echo '*****************Starting robot tests*******************'
-				
+				echo 'Starting robot tests'
 				script
 				{
 					dir('RobotTests')
@@ -117,10 +100,17 @@ pipeline
 		            reportFileName: 'report.html', 
 		            unstableThreshold: 100.0])
 				}
-				
-				
-				
-				
+			}
+		}
+		
+		
+		stage('Deploy and Run Application on Docker')
+		{
+			agent { label 'master' }
+			step
+			{
+				    echo 'Deploying the war file in Docker using Chef'
+				    knife bootstrap 192.168.11.109 -x kovair -P kovair@123 --sudo --node-name nodeDockerDeploy --run-list 'recipe[deploy_to_docker]' -y
 			}
 		}
 	}
