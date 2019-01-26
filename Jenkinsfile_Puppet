@@ -71,7 +71,6 @@ pipeline
 				}
 			}
 			
-			
 		}
 		
 		
@@ -81,7 +80,7 @@ pipeline
 			agent { label 'testnode' }
 			steps
 			{
-			
+				sleep(time:10,unit:"SECONDS")
 			    sh 'whoami'
 				echo '*****************Starting robot tests*******************'
 				
@@ -107,11 +106,23 @@ pipeline
 		            unstableThreshold: 100.0])
 				}
 				
-				
-				
-				
+			}
+		}	
+		stage('Deploy and Run Application on Docker')
+		{
+			agent { label 'Docker Agent' }
+			steps
+			{
+			    
+			    echo '***************** Starting Deployment on Docker using Puppet   ****************************'
+			    script
+			    {
+			    	def result = sh returnStatus: true, script: 'puppet agent -t'
+					
+				}
 			}
 		}
+		
 	}
 	
 }
