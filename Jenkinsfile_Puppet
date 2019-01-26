@@ -64,8 +64,8 @@ pipeline
 			{
 			    
 			    echo '***************** Deploying the files to Deployment server using Puppet   ****************************'
-			
-				sh 'puppet agent -t'
+			    def result = sh returnStatus: true, script: 'puppet agent -t'
+				echo result
 			}
 			
 			
@@ -86,6 +86,8 @@ pipeline
 				{
 					dir('RobotTests')
 					{
+					    
+					
 						sh '''robot -d Results Tests/KovairDevOpsDemoApp.robot'''
 
 					}
