@@ -57,7 +57,7 @@ pipeline
 			
 		}
 		
-		stage('deploy')
+		/*stage('deploy')
 		{
 			agent { label 'Tomcat Agent' }
 			steps
@@ -69,7 +69,7 @@ pipeline
 			}
 			
 			
-		}
+		}*/
 		
 		
 		
@@ -86,8 +86,7 @@ pipeline
 				{
 					dir('RobotTests')
 					{
-						sh '''robot -d Results Tests/KovairDevOpsDemoApp.robot
-						exit 0'''
+						sh '''robot -d Results Tests/KovairDevOpsDemoApp.robot'''
 
 					}
 					step([$class: 'RobotPublisher', 
