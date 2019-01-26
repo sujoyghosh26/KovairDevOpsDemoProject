@@ -66,7 +66,9 @@ pipeline
 			    echo '***************** Deploying the files to Deployment server using Puppet   ****************************'
 			    script
 			    {
-			    	def result = sh returnStatus: true, script: 'puppet agent -t'
+			    	def result = sh script: 'puppet agent -t'
+			    	
+			    	echo ${result}
 					
 				}
 			}
@@ -118,7 +120,7 @@ pipeline
 			    script
 			    {
 			    	def result = sh script: 'puppet agent -t'
-					
+					echo ${result}
 				}
 			}
 		}
