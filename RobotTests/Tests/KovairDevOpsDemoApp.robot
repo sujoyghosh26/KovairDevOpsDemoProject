@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation  Kovair ALM Studio Tests
+Documentation  DevOps Application Headless Test with Robot Framework 
 Resource  ../Resources/Common.robot
 Resource  ../Resources/KovairDevOpsDemoApp.robot
 

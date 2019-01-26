@@ -9,7 +9,7 @@ pipeline
 			
 			steps
 			{
-				git 'ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/DevOpsDemoApplication.git'
+				//git 'ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/DevOpsDemoApplication.git'
 				
 				script {
                     def mvn_version = 'maven_3_5_4'
@@ -27,22 +27,21 @@ pipeline
 				success {
 
 				
-					echo '************Archiving the Artifact..****************'
+					//echo '************Archiving the Artifact..****************'
 					archiveArtifacts artifacts: 'target/*.war'
 					
 					
-					echo '************Copying the war file to War Git working directory ************'
+					//echo '************Copying the war file to War Git working directory ************'
 					sh 'cp target/*.war /home/kovair/ApplicationWar/'
 					
 					
 					
 					
 					
-					echo '************ Pushing the war files to ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/WarRepository.git ************' 
+					//echo '************ Pushing the war files to ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/WarRepository.git ************' 
 					
 				    
 				    sh '''
-				        whoami
 				        cd /home/kovair/ApplicationWar/
 						git add .
 						git commit -m "War updated."
@@ -63,7 +62,7 @@ pipeline
 			steps
 			{
 			    
-			    echo '***************** Deploying the files to Deployment server using Puppet   ****************************'
+			    //echo '***************** Deploying the files to Deployment server using Puppet   ****************************'
 			    
 			    sh 'set +e; puppet agent -t; if [ $? == 2 ]; then exit 0; fi'
 				
@@ -76,8 +75,7 @@ pipeline
 			steps
 			{
 				sleep(time:10,unit:"SECONDS")
-			    sh 'whoami'
-				echo '*****************Starting robot tests*******************'
+				//echo '*****************Starting robot tests*******************'
 				script
 				{
 					dir('RobotTests')
@@ -105,8 +103,8 @@ pipeline
 			steps
 			{
 			    
-			     echo '***************** Starting Deployment on Docker using Puppet   ****************************'
-			     sh 'set +e; puppet agent -t; if [ $? == 2 ]; then exit 0; fi'
+			     echo 'Starting Deployment on Docker using Puppet' && sh 'set +e; puppet agent -t; if [ $? == 2 ]; then exit 0; fi'
+			     
 			}
 		}
 		
