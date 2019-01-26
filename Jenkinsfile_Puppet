@@ -1,0 +1,113 @@
+pipeline
+{
+	agent none
+	stages
+	{
+		stage('build')
+		{
+			agent { label 'master' }
+			
+			steps
+			{
+				git 'ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/DevOpsDemoApplication.git'
+				
+				script {
+                    def mvn_version = 'maven_3_5_4'
+					withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
+					  sh "mvn clean install"
+					}
+				
+                }
+				
+				
+			}
+			
+			post
+			{ 
+				success {
+
+				
+					echo '************Archiving the Artifact..****************'
+					archiveArtifacts artifacts: 'target/*.war'
+					
+					
+					echo '************Copying the war file to War Git working directory ************'
+					sh 'cp target/*.war /home/kovair/ApplicationWar/'
+					
+					
+					
+					
+					
+					echo '************ Pushing the war files to ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/WarRepository.git ************' 
+					
+				    
+				    sh '''
+				        whoami
+				        cd /home/kovair/ApplicationWar/
+						git add .
+						git commit -m "War updated."
+						git push origin master
+						
+						'''
+				    
+					
+
+				}
+			}
+			
+		}
+		
+		stage('deploy')
+		{
+			agent { label 'Tomcat Agent' }
+			steps
+			{
+			    
+			    echo '***************** Deploying the files to Deployment server using Puppet   ****************************'
+			
+				sh 'puppet agent -t'
+			}
+			
+			
+		}
+		
+		
+		
+		stage('test')
+		{
+			agent { label 'testnode' }
+			steps
+			{
+			
+			    sh 'whoami'
+				echo '*****************Starting robot tests*******************'
+				
+				script
+				{
+					dir('RobotTests')
+					{
+						sh '''robot -d Results Tests/KovairDevOpsDemoApp.robot
+						exit 0'''
+
+					}
+					step([$class: 'RobotPublisher', 
+		            disableArchiveOutput: false, 
+		            enableCache: true, 
+		            logFileName: 'log.html', 
+		            onlyCritical: true, 
+		            otherFiles: '', 
+		            outputFileName: 'output.xml', 
+		            outputPath: 'RobotTests/Results', 
+		            passThreshold: 100.0, 
+		            reportFileName: 'report.html', 
+		            unstableThreshold: 100.0])
+				}
+				
+				
+				
+				
+			}
+		}
+	}
+	
+}

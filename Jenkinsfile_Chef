@@ -102,7 +102,7 @@ pipeline
 					dir('RobotTests')
 					{
 						sh '''robot -d Results Tests/KovairDevOpsDemoApp.robot
-						exit 1'''
+						exit 0'''
 
 					}
 					step([$class: 'RobotPublisher', 
