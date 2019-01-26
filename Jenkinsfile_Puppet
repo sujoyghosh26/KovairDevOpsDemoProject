@@ -117,7 +117,7 @@ pipeline
 			    echo '***************** Starting Deployment on Docker using Puppet   ****************************'
 			    script
 			    {
-			    	def result = sh returnStatus: true, script: 'puppet agent -t'
+			    	def result = sh script: 'puppet agent -t'
 					
 				}
 			}
