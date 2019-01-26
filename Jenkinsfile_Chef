@@ -84,7 +84,7 @@ pipeline
 				{
 					dir('RobotTests')
 					{
-						sh '''robot -d Results Tests/KovairDevOpsDemoApp.robot
+						sh '''robot -v START_URL:http://192.168.11.175:8080/KovairDevOpsDemoApp_Chef/ -d Results Tests/KovairDevOpsDemoApp.robot'''
 						exit 0'''
 
 					}
