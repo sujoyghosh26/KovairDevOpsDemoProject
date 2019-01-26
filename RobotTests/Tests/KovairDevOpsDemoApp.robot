@@ -9,7 +9,7 @@ Test Teardown  Common.End Web Test
 
 *** Variables ***
 ${BROWSER} =  gc
-${START_URL} =  http://192.168.11.175:8080/KovairDevOpsDemoApp_Puppet/
+#${START_URL} =  http://192.168.11.175:8080/KovairDevOpsDemoApp_Puppet/
 ${USERNAME} =  admin
 ${PASSWORD} =  admin
 
