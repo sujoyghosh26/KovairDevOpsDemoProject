@@ -37,7 +37,7 @@ pipeline
 						git add .
 						git commit -m "War updated."
 						git push origin master
-						
+					'''
 					
 					/*
 					echo '************Copying the war file to Chef Deployment directory************'
