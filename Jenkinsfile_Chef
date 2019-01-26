@@ -110,7 +110,7 @@ pipeline
 			step
 			{
 				    echo 'Deploying the war file in Docker using Chef'
-				    knife bootstrap 192.168.11.109 -x kovair -P kovair@123 --sudo --node-name nodeDockerDeploy --run-list 'recipe[deploy_to_docker]' -y
+				    sh 'knife bootstrap 192.168.11.109 -x kovair -P kovair@123 --sudo --node-name nodeDockerDeploy --run-list "recipe[deploy_to_docker]" -y'
 			}
 		}
 	}
