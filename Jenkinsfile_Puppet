@@ -31,23 +31,17 @@ pipeline
 					archiveArtifacts artifacts: 'target/*.war'
 					
 					
-					//echo '************Copying the war file to War Git working directory ************'
+					echo 'Copying the war file and pushing to War Repo'
 					sh 'cp target/*.war /home/kovair/ApplicationWar/'
 					
-					
-					
-					
-					
-					//echo '************ Pushing the war files to ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/WarRepository.git ************' 
-					
+					//echo '************ Pushing the war files to ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/WarRepository.git ************' 			    
 				    
 				    sh '''
 				        cd /home/kovair/ApplicationWar/
 						git add .
 						git commit -m "War updated."
 						git push origin master
-						
-						'''
+					'''
 				    
 					
 
@@ -62,8 +56,7 @@ pipeline
 			steps
 			{
 			    
-			    //echo '***************** Deploying the files to Deployment server using Puppet   ****************************'
-			    
+			    echo 'Starting deployment using Puppet'
 			    sh 'set +e; puppet agent -t; if [ $? == 2 ]; then exit 0; fi'
 				
 			}
@@ -75,7 +68,7 @@ pipeline
 			steps
 			{
 				sleep(time:10,unit:"SECONDS")
-				//echo '*****************Starting robot tests*******************'
+				echo 'Starting robot tests'
 				script
 				{
 					dir('RobotTests')
