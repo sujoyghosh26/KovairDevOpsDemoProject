@@ -66,9 +66,9 @@ pipeline
 			    echo '***************** Deploying the files to Deployment server using Puppet   ****************************'
 			    script
 			    {
-			    	def result = sh script: 'puppet agent -t || exit $? || echo $?'
+			    	sh script: 'puppet agent -t || exit $? || echo Test ABCD $?'
 			    	
-			    	echo ${result}
+			    	
 					
 				}
 			}
