@@ -66,10 +66,8 @@ pipeline
 			    echo '***************** Deploying the files to Deployment server using Puppet   ****************************'
 			    script
 			    {
-			    	sh script: 'puppet agent -t || exit $? || echo Test ABCD $?'
+			    	bash -c 'puppet agent -t if [ "\$?" == "2" ]; then exit 0; else exit 1;'
 			    	
-			    	
-					
 				}
 			}
 			
