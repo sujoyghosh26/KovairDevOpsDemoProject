@@ -65,7 +65,7 @@ pipeline
 			    
 			    echo '***************** Deploying the files to Deployment server using Puppet   ****************************'
 			    
-			    sh 'puppet agent -t; if [ $? == 2 ]; then exit 0; else exit 1;'
+			    sh 'puppet agent -t; if [ "\\$?" == "2" ]; then exit 0; else exit 1; fi'
 			    	
 				
 			}
