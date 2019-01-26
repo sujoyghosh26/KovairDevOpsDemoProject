@@ -57,7 +57,7 @@ pipeline
 			
 		}
 		
-		/*stage('deploy')
+		stage('deploy')
 		{
 			agent { label 'Tomcat Agent' }
 			steps
@@ -69,11 +69,11 @@ pipeline
 			}
 			
 			
-		}*/
+		}
 		
 		
 		
-		stage('test')
+		/*stage('test')
 		{
 			agent { label 'testnode' }
 			steps
@@ -106,7 +106,7 @@ pipeline
 				
 				
 			}
-		}
+		}*/
 	}
 	
 }
