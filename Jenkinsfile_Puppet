@@ -103,7 +103,8 @@ pipeline
 			steps
 			{
 			    
-			     echo 'Starting Deployment on Docker using Puppet' && sh 'set +e; puppet agent -t; if [ $? == 2 ]; then exit 0; fi'
+			     echo 'Starting Deployment on Docker using Puppet'
+			     sh 'set +e; puppet agent -t; if [ $? == 2 ]; then exit 0; fi'
 			     
 			}
 		}
