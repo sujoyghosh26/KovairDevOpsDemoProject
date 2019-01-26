@@ -96,14 +96,16 @@ pipeline
 			
 			    sh 'whoami'
 				echo '*****************Starting robot tests*******************'
-				sh '''
-				cd RobotTests
-				scl enable rh-python36 bash
-				alias python="/opt/rh/rh-python36/root/usr/bin/python3.6"
-				alias robot="/opt/rh/rh-python36/root/usr/bin/robot"
-				python --version
-				robot --version
-				robot -d Results Tests/KovairDevOpsDemoApp.robot'''
+				
+				script
+				{
+					dir('RobotTests')
+					{
+						sh 'robot -d Results Tests/KovairDevOpsDemoApp.robot'
+					}
+				}
+				
+				
 				
 				
 			}
