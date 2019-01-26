@@ -103,6 +103,17 @@ pipeline
 					{
 						sh 'robot -d Results Tests/KovairDevOpsDemoApp.robot'
 					}
+					step([$class: 'RobotPublisher', 
+		            disableArchiveOutput: false, 
+		            enableCache: true, 
+		            logFileName: 'log.html', 
+		            onlyCritical: true, 
+		            otherFiles: '', 
+		            outputFileName: 'output.xml', 
+		            outputPath: 'RobotTests/Results', 
+		            passThreshold: 100.0, 
+		            reportFileName: 'report.html', 
+		            unstableThreshold: 100.0])
 				}
 				
 				
