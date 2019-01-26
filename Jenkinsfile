@@ -101,7 +101,9 @@ pipeline
 				{
 					dir('RobotTests')
 					{
-						sh 'robot -d Results Tests/KovairDevOpsDemoApp.robot'
+						sh '''robot -d Results Tests/KovairDevOpsDemoApp.robot
+						exit 1'''
+
 					}
 					step([$class: 'RobotPublisher', 
 		            disableArchiveOutput: false, 
