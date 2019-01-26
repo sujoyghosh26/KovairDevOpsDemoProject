@@ -3,7 +3,7 @@ pipeline
 	agent none
 	stages
 	{
-		stage('build')
+		stage('CheckOut and Build The Application')
 		{
 			agent { label 'master' }
 			
@@ -57,7 +57,7 @@ pipeline
 			
 		}
 		
-		stage('deploy')
+		stage('Deploy Application on Tomcat')
 		{
 			agent { label 'Tomcat Agent' }
 			steps
@@ -65,15 +65,12 @@ pipeline
 			    
 			    echo '***************** Deploying the files to Deployment server using Puppet   ****************************'
 			    
-			    sh 'set +e; puppet agent -t; if [ "\\$?" == "2" ]; then exit 0; fi'
+			    sh 'set +e; puppet agent -t; if [ $? == 2 ]; then exit 0; fi'
 				
 			}
-			
 		}
 		
-		
-		
-		stage('test')
+		stage('Test Application with Robot Framework')
 		{
 			agent { label 'testnode' }
 			steps
@@ -81,15 +78,11 @@ pipeline
 				sleep(time:10,unit:"SECONDS")
 			    sh 'whoami'
 				echo '*****************Starting robot tests*******************'
-				
 				script
 				{
 					dir('RobotTests')
 					{
-					    
-					
 						sh '''robot -d Results Tests/KovairDevOpsDemoApp.robot'''
-
 					}
 					step([$class: 'RobotPublisher', 
 		            disableArchiveOutput: false, 
@@ -112,8 +105,8 @@ pipeline
 			steps
 			{
 			    
-			    echo '***************** Starting Deployment on Docker using Puppet   ****************************'
-			    sh 'puppet agent -t'
+			     echo '***************** Starting Deployment on Docker using Puppet   ****************************'
+			     sh 'set +e; puppet agent -t; if [ $? == 2 ]; then exit 0; fi'
 			}
 		}
 		
