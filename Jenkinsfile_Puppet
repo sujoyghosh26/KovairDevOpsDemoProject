@@ -65,9 +65,7 @@ pipeline
 			    
 			    echo '***************** Deploying the files to Deployment server using Puppet   ****************************'
 			    
-			    
-			    sh 'set +e; puppet agent -t; if [ $? == 2 ]; then exit 0; else exit 1; fi'
-			    	
+			    sh 'set +e; puppet agent -t; if [ $? == 2 ]; then exit 0; fi'
 				
 			}
 			
@@ -115,11 +113,7 @@ pipeline
 			{
 			    
 			    echo '***************** Starting Deployment on Docker using Puppet   ****************************'
-			    script
-			    {
-			    	def result = sh script: 'puppet agent -t || exit $? || echo $?'
-					echo ${result}
-				}
+			    sh 'set +e; puppet agent -t; if [ $? == 2 ]; then exit 0; fi'
 			}
 		}
 		
