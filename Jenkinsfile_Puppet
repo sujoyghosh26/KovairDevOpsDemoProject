@@ -67,7 +67,7 @@ pipeline
 			    script
 			    {
 			    	def result = sh returnStatus: true, script: 'puppet agent -t'
-					sh 'echo ${result}'
+					
 				}
 			}
 			
@@ -76,7 +76,7 @@ pipeline
 		
 		
 		
-		/*stage('test')
+		stage('test')
 		{
 			agent { label 'testnode' }
 			steps
@@ -111,7 +111,7 @@ pipeline
 				
 				
 			}
-		}*/
+		}
 	}
 	
 }
