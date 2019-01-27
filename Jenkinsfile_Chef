@@ -85,7 +85,7 @@ pipeline
 					dir('RobotTests')
 					{
 						sh '''robot -v START_URL:http://192.168.11.175:8080/KovairDevOpsDemoApp_Chef/ -d Results Tests/KovairDevOpsDemoApp.robot'''
-						exit 0'''
+						
 
 					}
 					step([$class: 'RobotPublisher', 
@@ -100,6 +100,19 @@ pipeline
 		            reportFileName: 'report.html', 
 		            unstableThreshold: 100.0])
 				}
+			}
+		}
+		stage('Deploy and Run Application on Docker')
+		{
+			agent { label 'master' }
+			steps
+			{
+				    echo 'Deploying the war file in Docker using Chef'
+				    sh '''
+				    	knife bootstrap 192.168.11.109 -x kovair -P kovair@123 --sudo --node-name nodeDockerDeploy --run-list "recipe[deploy_to_docker]" -y
+				    '''
+				    
+				    
 			}
 		}
 		
