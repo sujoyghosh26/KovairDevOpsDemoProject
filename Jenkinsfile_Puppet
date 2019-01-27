@@ -73,7 +73,7 @@ pipeline
 				{
 					dir('RobotTests')
 					{	    
-						sh '''robot -v START_URL:http://192.168.11.175:8080/KovairDevOpsDemoApp_Puppet/ -d Results --nostatusrc Tests/KovairDevOpsDemoApp.robot'''
+						sh '''robot -v START_URL:http://192.168.11.175:8080/KovairDevOpsDemoApp_Puppet/ -d Results Tests/KovairDevOpsDemoApp.robot'''
 					}
 					step([$class: 'RobotPublisher', 
 		            disableArchiveOutput: false, 
