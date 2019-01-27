@@ -78,7 +78,7 @@ pipeline
 			agent { label 'testnode' }
 			steps
 			{
-			
+			    sleep(time:10,unit:"SECONDS")
 				echo 'Starting robot tests'
 				script
 				{
