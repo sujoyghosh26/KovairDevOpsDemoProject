@@ -27,14 +27,14 @@ pipeline
 				success {
 
 				
-					//echo '************Archiving the Artifact..****************'
+					// '************Archiving the Artifact..****************'
 					archiveArtifacts artifacts: 'target/*.war'
 					
 					
 					echo 'Copying the war file and pushing to War Repo'
 					sh 'cp target/*.war /home/kovair/ApplicationWar/'
 					
-					//echo '************ Pushing the war files to ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/WarRepository.git ************' 			    
+					//'************ Pushing the war files to ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/WarRepository.git ************' 			    
 				    
 				    sh '''
 				        cd /home/kovair/ApplicationWar/
