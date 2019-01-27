@@ -11,7 +11,7 @@ Test Teardown  Common.End Web Test
 ${BROWSER} =  gc
 #${START_URL} =  http://192.168.11.175:8080/KovairDevOpsDemoApp_Puppet/
 ${USERNAME} =  admin
-${PASSWORD} =  admin1
+${PASSWORD} =  admin
 
 *** Test Cases ***
 Check User Name Can Not Be Blank
