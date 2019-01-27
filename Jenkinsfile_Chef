@@ -57,10 +57,9 @@ pipeline
 				
 				failure
 				{
-					script
-					{
+					
 						mail bcc: '', body: 'Build is failed', cc: '', from: '', replyTo: '', subject: 'Jenkins Failure Notification', to: 'prasanjitdey@kovair.com'
-					}
+					
 				}
 			}
 			
