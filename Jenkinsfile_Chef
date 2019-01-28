@@ -61,7 +61,7 @@ pipeline
 					{
 						def recipient = 'https://outlook.office.com/webhook/bec5e87a-b2b3-48c4-994f-75f450422293@3cd788f0-4406-4d04-afa9-b28bca6e0b21/JenkinsCI/4de75f08e14245fa9f825911c42c4460/9eab3e39-3de4-4dbc-999f-94520f178250'
 			
-						office365ConnectorSend message: "Build Failed For Job ${JOB_NAME} and Build Number ${BUILD_NUMBER}", status: 'Failed', webhookUrl: '${recipient}'
+						office365ConnectorSend message: "Build Failed", status: 'Failed', webhookUrl: '${recipient}'
 					}
 				}
 			}
@@ -87,7 +87,7 @@ pipeline
 					{
 						def recipient = 'https://outlook.office.com/webhook/bec5e87a-b2b3-48c4-994f-75f450422293@3cd788f0-4406-4d04-afa9-b28bca6e0b21/JenkinsCI/4de75f08e14245fa9f825911c42c4460/9eab3e39-3de4-4dbc-999f-94520f178250'
 			
-						office365ConnectorSend message: "Deployed successfully to Test server For Job ${JOB_NAME} and Build Number ${BUILD_NUMBER}", status: 'Success', webhookUrl: '${recipient}'
+						office365ConnectorSend message: "Deployed successfully to Test server", status: 'Success', webhookUrl: '${recipient}'
 					}
 				}
 			}
@@ -151,7 +151,7 @@ pipeline
 					{
 						def recipient = 'https://outlook.office.com/webhook/bec5e87a-b2b3-48c4-994f-75f450422293@3cd788f0-4406-4d04-afa9-b28bca6e0b21/JenkinsCI/4de75f08e14245fa9f825911c42c4460/9eab3e39-3de4-4dbc-999f-94520f178250'
 			
-						office365ConnectorSend message: "Application successfully deployed to Docker For Job ${JOB_NAME} and Build Number ${BUILD_NUMBER}. Docker Url: http://192.168.11.109:8888/KovairDevOpsDemoApp_Chef/ ", status: 'Success', webhookUrl: '${recipient}'
+						office365ConnectorSend message: "Application successfully deployed to Docker. Docker Url: <a href='http://192.168.11.109:8888/KovairDevOpsDemoApp_Chef'>http://192.168.11.109:8888/KovairDevOpsDemoApp_Chef/</a> ", status: 'Success', webhookUrl: '${recipient}'
 					}
 				}
 			}
