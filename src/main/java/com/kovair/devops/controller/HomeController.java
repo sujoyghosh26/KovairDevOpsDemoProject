@@ -27,7 +27,7 @@ public class HomeController {
 		if(user != null){
 			String userName = user.getUserName(); 
 			String password = user.getPassword();
-			if(userName.equals("admin1") && password.equals("admin")){
+			if(userName.equals("admin") && password.equals("admin")){
 				
 				return(validUser);
 			}
