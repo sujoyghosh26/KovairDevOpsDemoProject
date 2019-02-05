@@ -1,3 +1,4 @@
+def istoarchive = 'FALSE'
 pipeline
 {
 	agent none
@@ -110,7 +111,46 @@ pipeline
 				}
 				
 			}
+			post
+			{
+				success
+				{
+					script
+					{
+						istoarchive = 'TRUE'
+					} 
+				}
+			}
 		}	
+		
+		stage('Archive Artifacts to Git Repository')
+		{
+			agent { label 'Tomcat Agent' }
+			when
+			{
+				beforeAgent true
+				expression 
+				{
+					return istoarchive != 'FALSE';
+				}
+			}
+			steps
+			{
+				sh '''
+					cd /usr/share/tomcat/webapps
+					cp /usr/share/tomcat/webapps/KovairDevOpsDemoApp_Puppet.war /home/kovair/gitWarRepo/KovairDevOpsDemoApp_Puppet_stable.war
+					cd /home/kovair/gitWarRepo
+					git add KovairDevOpsDemoApp_Puppet_stable.war
+					git commit -m "War archived to repository"
+				    git push origin master
+				
+				'''
+			}
+			
+			
+		}
+		
+		
 		stage('Deploy and Run Application on Docker')
 		{
 			agent { label 'Docker Agent' }
