@@ -39,6 +39,7 @@ pipeline
 				    
 				    sh '''
 				        cd /home/kovair/ApplicationWar/
+				        git pull origin master
 						git add .
 						git commit -m "War updated."
 						git push origin master
