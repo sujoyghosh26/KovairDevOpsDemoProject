@@ -29,7 +29,7 @@ pipeline
 
 				
 					// '************Archiving the Artifact..****************'
-					archiveArtifacts artifacts: 'target/*.war'
+					//archiveArtifacts artifacts: 'target/*.war'
 					
 					
 					echo 'Copying the war file and pushing to War Repo'
