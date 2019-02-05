@@ -121,6 +121,10 @@ pipeline
 						istoarchive = 'TRUE'
 					} 
 				}
+				failure
+				{
+					echo "TEST FAILED"
+				}
 			}
 		}	
 		
