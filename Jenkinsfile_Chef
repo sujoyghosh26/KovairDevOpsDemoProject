@@ -160,7 +160,7 @@ pipeline
 					cp /usr/share/tomcat/webapps/KovairDevOpsDemoApp_Puppet.war /home/kovair/gitWarRepo/KovairDevOpsDemoApp_Puppet_stable.war
 					cd /home/kovair/gitWarRepo
 					git pull origin master
-					git add KovairDevOpsDemoApp_Puppet_stable.war
+					git add KovairDevOpsDemoApp_Chef_stable.war
 					git commit -m "War archived to repository"
 				    git push origin master
 				
