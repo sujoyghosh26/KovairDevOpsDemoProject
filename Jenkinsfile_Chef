@@ -1,3 +1,4 @@
+def istoarchive = 'FALSE'
 pipeline
 {
 	agent none
