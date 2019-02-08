@@ -139,9 +139,8 @@ pipeline
 				failure
 				{
 					sh '''
-					
-						knife bootstrap 192.168.11.175 -x kovair -P kovair@123 --sudo --node-name 
-						nodeVMStableDeploy --run-list 'recipe[deploy_to_vmstable]' -y
+					    cd /home/kovair/chef-repo/cookbooks
+						knife bootstrap 192.168.11.175 -x kovair -P kovair@123 --sudo --node-name nodeVMStableDeploy --run-list 'recipe[deploy_to_vmstable]' -y
 					
 					'''
 				}
