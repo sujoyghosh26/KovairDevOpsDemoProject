@@ -124,28 +124,28 @@ pipeline
 		            reportFileName: 'report.html', 
 		            unstableThreshold: 100.0])
 				}
-				post
-				{
-					success
-					{
-						script
-						{
-							istoarchive = 'TRUE'
-						} 
-					}
-					failure
-					{
-						sh '''
-						
-							knife bootstrap 192.168.11.175 -x kovair -P kovair@123 --sudo --node-name 
-							nodeVMStableDeploy --run-list 'recipe[deploy_to_vmstable]' -y
-						
-						'''
-					}
-				}
+				
 			}
 			
-			
+			post
+			{
+				success
+				{
+					script
+					{
+						istoarchive = 'TRUE'
+					} 
+				}
+				failure
+				{
+					sh '''
+					
+						knife bootstrap 192.168.11.175 -x kovair -P kovair@123 --sudo --node-name 
+						nodeVMStableDeploy --run-list 'recipe[deploy_to_vmstable]' -y
+					
+					'''
+				}
+			}
 			
 		}
 		
