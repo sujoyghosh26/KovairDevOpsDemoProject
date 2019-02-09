@@ -1,4 +1,5 @@
 def istoarchive = 'FALSE'
+def microsoftteamsrecipientwebhookurl = 'https://outlook.office.com/webhook/bec5e87a-b2b3-48c4-994f-75f450422293@3cd788f0-4406-4d04-afa9-b28bca6e0b21/JenkinsCI/4de75f08e14245fa9f825911c42c4460/9eab3e39-3de4-4dbc-999f-94520f178250'
 pipeline
 {
 	agent none
@@ -10,26 +11,19 @@ pipeline
 			
 			steps
 			{
-				//git 'ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/DevOpsDemoApplication.git'
-				
-				script {
+				script
+				{
                     def mvn_version = 'maven_3_5_4'
 					withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
 					  sh "mvn clean install"
 					}
-				
                 }
-				
-				
 			}
 			
 			post
 			{ 
-				success {
-
-				
-					//echo '************Archiving the Artifact..****************'
-					//archiveArtifacts artifacts: 'target/*.war'
+				success 
+				{
 					echo 'Copying the war file and pushing to War Repo'
 					sh 'cp target/*.war /home/kovair/ApplicationWar/'
 					//echo '************ Pushing the war files to ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/WarRepository.git ************' 
@@ -40,21 +34,6 @@ pipeline
 						git commit -m "War updated."
 						git push origin master
 					'''
-					
-					/*
-					echo '************Copying the war file to Chef Deployment directory************'
-					sh 'cp target/*.war /home/kovair/chef-repo/cookbooks/deploy_to_vm/files/default'
-					knife cookbook upload deploy_to_vm
-					*/
-					
-					/*
-					echo '************Uploading Cookbook and deploying war file to VM***************'
-					sh '''cd /home/kovair/chef-repo
-							
-							knife bootstrap 192.168.11.175 -x kovair -P kovair@123 --sudo --node-name nodeVMDeploy --run-list \'recipe[deploy_to_vm]\' -y'''
-							
-				    */
-				   
 				}
 				
 				failure
@@ -109,7 +88,6 @@ pipeline
 					dir('RobotTests')
 					{
 						sh '''robot -v START_URL:http://192.168.11.175:8080/KovairDevOpsDemoApp_Chef/ -d Results Tests/KovairDevOpsDemoApp.robot'''
-						
 
 					}
 					step([$class: 'RobotPublisher', 
@@ -126,7 +104,6 @@ pipeline
 				}
 				
 			}
-			
 			post
 			{
 				success
@@ -134,6 +111,7 @@ pipeline
 					script
 					{
 						istoarchive = 'TRUE'
+						office365ConnectorSend message: "Robot Testing is successful for the application with URL: <a href='http://192.168.11.175:8080/KovairDevOpsDemoApp_Chef/'>http://192.168.11.175:8080/KovairDevOpsDemoApp_Chef/</a> ", status: 'Success', webhookUrl: '${microsoftteamsrecipientwebhookurl}'
 					} 
 				}
 				failure
@@ -141,7 +119,6 @@ pipeline
 					sh '''
 					    cd /home/kovair/chef-repo/cookbooks
 						knife bootstrap 192.168.11.175 -x kovair -P kovair@123 --sudo --node-name nodeVMStableDeploy --run-list 'recipe[deploy_to_vmstable]' -y
-					
 					'''
 				}
 			}
@@ -169,7 +146,6 @@ pipeline
 					git add KovairDevOpsDemoApp_Chef_stable.war
 					git commit -m "War archived to repository"
 				    git push origin master
-				
 				'''
 			}
 			post
@@ -179,14 +155,12 @@ pipeline
 					script
 					{
 						def recipient = 'https://outlook.office.com/webhook/bec5e87a-b2b3-48c4-994f-75f450422293@3cd788f0-4406-4d04-afa9-b28bca6e0b21/JenkinsCI/4de75f08e14245fa9f825911c42c4460/9eab3e39-3de4-4dbc-999f-94520f178250'
-				
 						office365ConnectorSend message: "War file archived successfully to Git", status: 'Success', webhookUrl: '${recipient}'
 					}
 				}
 			}
 			
 		}
-		
 		stage('Deploy and Run Application on Docker')
 		{
 			agent { label 'master' }
@@ -197,12 +171,7 @@ pipeline
 				        cd /home/kovair/chef-repo/cookbooks
 				    	knife bootstrap 192.168.11.109 -x kovair -P kovair@123 --sudo --node-name nodeDockerDeploy --run-list "recipe[deploy_to_docker]" -y
 				    '''
-				    
-				    
-				    
-				    
-			}
-			
+		    }
 			post
 			{
 				success
@@ -215,9 +184,6 @@ pipeline
 					}
 				}
 			}
-		}
-		
-		
+		}		
 	}
-	
 }
