@@ -40,9 +40,7 @@ pipeline
 				{
 					script
 					{
-						def recipient = 'https://outlook.office.com/webhook/bec5e87a-b2b3-48c4-994f-75f450422293@3cd788f0-4406-4d04-afa9-b28bca6e0b21/JenkinsCI/4de75f08e14245fa9f825911c42c4460/9eab3e39-3de4-4dbc-999f-94520f178250'
-			
-						office365ConnectorSend message: "Build Failed", status: 'Failed', webhookUrl: '${recipient}'
+						office365ConnectorSend message: "Build Failed", status: 'Failed', webhookUrl: '${microsoftteamsrecipientwebhookurl}'
 					}
 				}
 			}
@@ -66,15 +64,11 @@ pipeline
 				{
 					script
 					{
-						def recipient = 'https://outlook.office.com/webhook/bec5e87a-b2b3-48c4-994f-75f450422293@3cd788f0-4406-4d04-afa9-b28bca6e0b21/JenkinsCI/4de75f08e14245fa9f825911c42c4460/9eab3e39-3de4-4dbc-999f-94520f178250'
-			
-						office365ConnectorSend message: "Deployed successfully to Test server", status: 'Success', webhookUrl: '${recipient}'
+						office365ConnectorSend message: "Deployed successfully to Test server", status: 'Success', webhookUrl: '${microsoftteamsrecipientwebhookurl}'
 					}
 				}
 			}
 		}
-		
-		
 		
 		stage('Test Application with Robot Framework')
 		{
@@ -120,6 +114,7 @@ pipeline
 					    cd /home/kovair/chef-repo/cookbooks
 						knife bootstrap 192.168.11.175 -x kovair -P kovair@123 --sudo --node-name nodeVMStableDeploy --run-list 'recipe[deploy_to_vmstable]' -y
 					'''
+					office365ConnectorSend message: "Robot Tests failed for the application with Url: <a href='http://192.168.11.175:8080/KovairDevOpsDemoApp_Chef/'>http://192.168.11.175:8080/KovairDevOpsDemoApp_Chef/</a> Last build reverted successfully", status: 'Success', webhookUrl: '${microsoftteamsrecipientwebhookurl}'
 				}
 			}
 			
