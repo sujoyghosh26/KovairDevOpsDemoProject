@@ -1,4 +1,6 @@
 def istoarchive = 'FALSE'
+def needtorestore = 'FALSE'
+def microsoftteamsrecipientwebhookurl = 'https://outlook.office.com/webhook/bec5e87a-b2b3-48c4-994f-75f450422293@3cd788f0-4406-4d04-afa9-b28bca6e0b21/JenkinsCI/4de75f08e14245fa9f825911c42c4460/9eab3e39-3de4-4dbc-999f-94520f178250'
 pipeline
 {
 	agent none
@@ -7,36 +9,24 @@ pipeline
 		stage('CheckOut and Build The Application')
 		{
 			agent { label 'master' }
-			
 			steps
-			{
-				//git 'ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/DevOpsDemoApplication.git'
-				
-				script {
+			{	
+				script
+				{
                     def mvn_version = 'maven_3_5_4'
-					withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
+					withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] )
+					{
 					  sh "mvn clean install"
 					}
-				
                 }
-				
-				
 			}
-			
 			post
 			{ 
-				success {
-
-				
-					// '************Archiving the Artifact..****************'
-					//archiveArtifacts artifacts: 'target/*.war'
-					
-					
+				success 
+				{
 					echo 'Copying the war file and pushing to War Repo'
 					sh 'cp target/*.war /home/kovair/ApplicationWar/'
-					
 					//'************ Pushing the war files to ssh://kovair@192.168.11.90:22/home/kovair/MyGitFiles/WarRepository.git ************' 			    
-				    
 				    sh '''
 				        cd /home/kovair/ApplicationWar/
 				        git pull origin master
@@ -44,21 +34,15 @@ pipeline
 						git commit -m "War updated."
 						git push origin master
 					'''
-				    
-					
-
 				}
 				failure
 				{
 					script
 					{
-						def recipient = 'https://outlook.office.com/webhook/bec5e87a-b2b3-48c4-994f-75f450422293@3cd788f0-4406-4d04-afa9-b28bca6e0b21/JenkinsCI/4de75f08e14245fa9f825911c42c4460/9eab3e39-3de4-4dbc-999f-94520f178250'
-			
-						office365ConnectorSend message: "Build Failed", status: 'Failed', webhookUrl: '${recipient}'
+						office365ConnectorSend message: "Build Failed", status: 'Failed', webhookUrl: '${microsoftteamsrecipientwebhookurl}'
 					}
 				}
 			}
-			
 		}
 		
 		stage('Deploy Application on Tomcat')
@@ -66,10 +50,8 @@ pipeline
 			agent { label 'Tomcat Agent' }
 			steps
 			{
-			    
 			    echo 'Starting deployment using Puppet'
 			    sh 'set +e; puppet agent -t; if [ $? == 2 ]; then exit 0; fi'
-				
 			}
 			post
 			{
@@ -77,9 +59,7 @@ pipeline
 				{
 					script
 					{
-						def recipient = 'https://outlook.office.com/webhook/bec5e87a-b2b3-48c4-994f-75f450422293@3cd788f0-4406-4d04-afa9-b28bca6e0b21/JenkinsCI/4de75f08e14245fa9f825911c42c4460/9eab3e39-3de4-4dbc-999f-94520f178250'
-			
-						office365ConnectorSend message: "Deployed successfully to Test server", status: 'Success', webhookUrl: '${recipient}'
+						office365ConnectorSend message: "Deployed successfully to Test server", status: 'Success', webhookUrl: '${microsoftteamsrecipientwebhookurl}'
 					}
 				}
 			}
@@ -110,7 +90,6 @@ pipeline
 		            reportFileName: 'report.html', 
 		            unstableThreshold: 100.0])
 				}
-				
 			}
 			post
 			{
@@ -119,14 +98,33 @@ pipeline
 					script
 					{
 						istoarchive = 'TRUE'
+						needtorestore = 'FALSE'
 					} 
 				}
 				failure
 				{
-					echo "TEST FAILED"
+					needtorestore = 'TRUE'
+					office365ConnectorSend message: "Robot Tests failed for the application with Url: <a href='http://192.168.11.175:8080/KovairDevOpsDemoApp_Puppet/'>http://192.168.11.175:8080/KovairDevOpsDemoApp_Puppet/</a>", status: 'Failed', webhookUrl: '${microsoftteamsrecipientwebhookurl}'
 				}
 			}
 		}	
+		
+		stage('Restore Last Stable Build on Test Server')
+		{
+			agent { label 'Tomcat Agent' }
+			when
+			{
+				beforeAgent true
+				expression 
+				{
+					return needtorestore != 'FALSE';
+				}
+			}
+			steps
+			{
+				echo 'In Tomcat Agent. Puppet code to deploy stable build should run here...'
+			}
+		}
 		
 		stage('Archive Artifacts to Git Repository')
 		{
@@ -149,7 +147,6 @@ pipeline
 					git add KovairDevOpsDemoApp_Puppet_stable.war
 					git commit -m "War archived to repository"
 				    git push origin master
-				
 				'''
 			}
 			post
@@ -158,42 +155,29 @@ pipeline
 				{
 					script
 					{
-						def recipient = 'https://outlook.office.com/webhook/bec5e87a-b2b3-48c4-994f-75f450422293@3cd788f0-4406-4d04-afa9-b28bca6e0b21/JenkinsCI/4de75f08e14245fa9f825911c42c4460/9eab3e39-3de4-4dbc-999f-94520f178250'
-				
-						office365ConnectorSend message: "War file archived successfully to Git", status: 'Success', webhookUrl: '${recipient}'
+						office365ConnectorSend message: "War file archived successfully to Git", status: 'Success', webhookUrl: '${microsoftteamsrecipientwebhookurl}'
 					}
 				}
 			}
-			
 		}
-		
-		
 		stage('Deploy and Run Application on Docker')
 		{
 			agent { label 'Docker Agent' }
 			steps
 			{
-			    
 			     echo 'Starting Deployment on Docker using Puppet'
 			     sh 'set +e; puppet agent -t; if [ $? == 2 ]; then exit 0; fi'
-			     
 			}
-			
 			post
 			{
 				success
 				{
 					script
 					{
-						def recipient = 'https://outlook.office.com/webhook/bec5e87a-b2b3-48c4-994f-75f450422293@3cd788f0-4406-4d04-afa9-b28bca6e0b21/JenkinsCI/4de75f08e14245fa9f825911c42c4460/9eab3e39-3de4-4dbc-999f-94520f178250'
-			
-						office365ConnectorSend message: "Application successfully deployed to Docker. Docker Url: <a href='http://192.168.11.109:9999/KovairDevOpsDemoApp_Puppet'>http://192.168.11.109:9999/KovairDevOpsDemoApp_Puppet/</a> ", status: 'Success', webhookUrl: '${recipient}'
+						office365ConnectorSend message: "Application successfully deployed to Docker. Docker Url: <a href='http://192.168.11.109:9999/KovairDevOpsDemoApp_Puppet'>http://192.168.11.109:9999/KovairDevOpsDemoApp_Puppet/</a> ", status: 'Success', webhookUrl: '${microsoftteamsrecipientwebhookurl}'
 					}
 				}
 			}
-			
 		}
-		
 	}
-	
 }
