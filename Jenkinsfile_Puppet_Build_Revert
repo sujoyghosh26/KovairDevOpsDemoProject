@@ -5,7 +5,10 @@ pipeline
 	{
 		stage('Revert Build')
 		{
-			echo 'In Tomcat Agent. Code to deploy stable build will go here...'
+			steps
+			{
+				echo 'In Tomcat Agent. Code to deploy stable build will go here...'
+			}
 		}
 	}
 }
