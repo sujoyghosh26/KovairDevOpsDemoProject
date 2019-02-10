@@ -103,8 +103,11 @@ pipeline
 				}
 				failure
 				{
-					needtorestore = 'TRUE'
-					office365ConnectorSend message: "Robot Tests failed for the application with Url: <a href='http://192.168.11.175:8080/KovairDevOpsDemoApp_Puppet/'>http://192.168.11.175:8080/KovairDevOpsDemoApp_Puppet/</a>", status: 'Failed', webhookUrl: '${microsoftteamsrecipientwebhookurl}'
+				    script
+				    {
+						needtorestore = 'TRUE'
+						office365ConnectorSend message: "Robot Tests failed for the application with Url: <a href='http://192.168.11.175:8080/KovairDevOpsDemoApp_Puppet/'>http://192.168.11.175:8080/KovairDevOpsDemoApp_Puppet/</a>", status: 'Failed', webhookUrl: '${microsoftteamsrecipientwebhookurl}'
+					}
 				}
 			}
 		}	
