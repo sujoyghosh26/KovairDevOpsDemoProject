@@ -1,0 +1,11 @@
+pipeline
+{
+	agent { label 'Tomcat Agent' }
+	stages
+	{
+		stage('Revert Build')
+		{
+			echo 'In Tomcat Agent. Code to deploy stable build will go here...'
+		}
+	}
+}
