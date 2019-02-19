@@ -8,7 +8,15 @@ pipeline
 		{
 			steps
 			{
-				echo 'In Tomcat Agent. Code to deploy stable build will go here...'
+				echo '*******Deploy the last stable build********'
+				
+				sh '''
+					cd /home/kovair/stablewarrepo
+					git pull origin master
+					cp /home/kovair/stablewarrepo/KovairDevOpsDemoApp_Puppet_stable.war /usr/share/tomcat/webapps/KovairDevOpsDemoApp_Puppet.war
+				   '''
+				
+				
 			}
 			post
 			{
