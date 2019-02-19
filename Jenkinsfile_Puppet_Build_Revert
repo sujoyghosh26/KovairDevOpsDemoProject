@@ -8,7 +8,7 @@ pipeline
 		{
 			steps
 			{
-				echo '*******Deploy the last stable build********'
+				echo '*******Deploy the last stable build*********'
 				
 				sh '''
 					cd /home/kovair/stablewarrepo
