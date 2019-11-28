@@ -19,6 +19,7 @@ devOpsService.factory('devOpsService', function ($http) {
 	
 	devOpsDemoAPI.getAllEmployee = function () {
 		debugger;
+		
 		$employee = [
            	    {
            	        "First Name": "Cox",
@@ -84,7 +85,7 @@ devOpsService.factory('devOpsService', function ($http) {
            	        "Department": "Software Engineer"
            	    }
        	];
-		
+		$employee = [];
 		return $employee
 	}
 	
