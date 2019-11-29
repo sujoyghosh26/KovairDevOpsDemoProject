@@ -18,9 +18,9 @@ devOpsService.factory('devOpsService', function ($http) {
     }
 	
 	devOpsDemoAPI.getAllEmployee = function () {
-		debugger;
+
 		
-		var $employee = [
+		$employee = [
            	    {
            	        "First Name": "Cox",
            	        "Last Name": "Carney",
