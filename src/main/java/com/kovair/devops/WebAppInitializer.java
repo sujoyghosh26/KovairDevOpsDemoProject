@@ -25,15 +25,13 @@ public class WebAppInitializer implements WebApplicationInitializer {
 		dispatcher.addMapping("*.css");
 		dispatcher.addMapping("*.json");
 		dispatcher.addMapping("*.png");
-		dispatcher.addMapping("*.jpg");
-		
+		dispatcher.addMapping("*.jpg");		
 	}
-
 	private WebApplicationContext getContext() {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
 		context.register(WebConfig.class);
 		
 		return context;
 	}
-
+// Comment for 41
 }
