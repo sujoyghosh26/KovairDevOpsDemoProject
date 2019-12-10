@@ -8,7 +8,7 @@ public class Helloabc {
 
 	public static void main(String[] args) {
 		System.out.println("hiii");
-		System.out.println("hello new");
+		System.out.println("hello new 1");
 		// TODO Auto-generated method stub
 
 	}
