@@ -42,7 +42,7 @@ devOpsService.factory('devOpsService', function ($http) {
            	        "Department": "Omnibus Developement"
            	    },
            	    {
-           	        "First Name": "Somesh Ch.",
+           	        "First Name": "Somesh",
            	        "Last Name": "Roy",
            	        "Company": "Kovair",
            	        "Date of Joining": "01/08/2005",
@@ -84,7 +84,7 @@ devOpsService.factory('devOpsService', function ($http) {
            	        "Department": "Software Engineer"
            	    }
        	];
-		//$employee= [];
+		$employee = [];
 		return $employee
 	}
 	
