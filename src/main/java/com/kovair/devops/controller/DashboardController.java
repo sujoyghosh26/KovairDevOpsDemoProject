@@ -13,5 +13,5 @@ public class DashboardController {
 	public String displayDashboardPage() {
 		return "dashboard";
 	}
-	// FR 
+	// FR
 }
