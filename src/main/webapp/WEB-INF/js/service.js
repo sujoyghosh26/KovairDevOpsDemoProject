@@ -85,11 +85,9 @@ devOpsService.factory('devOpsService', function ($http) {
            	        "Department": "Software Engineer"
            	    }
        	];
-<<<<<<< HEAD
-		//$employee = [];
-=======
+
+		//$employee = []; 
 		$employee = [];
->>>>>>> branch 'master' of https://github.com/StandardDemo/KovairDevOpsDemoProject.git
 		return $employee
 	}
 	
