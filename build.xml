@@ -3,11 +3,12 @@
               Any modifications will be overwritten.
               To include a user specific buildfile here, simply create one in the same
               directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="KovairDevOpsSpringWebapp">
+              as the first entry and export the buildfile again. --><project xmlns:sonar="antlib:org.sonar.ant" basedir="." default="build" name="KovairDevOpsSpringWebapp">
     <property environment="env"/>
     <property name="ECLIPSE_HOME" value="../../../../eclipse-jee-luna-R-win32-x86_64/eclipse/"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.8"/>
+              	
     <property name="source" value="1.8"/>
               	<!-- Define the Sonar properties -->
               	       
@@ -20,7 +21,7 @@
               	    <property name="sonar.language" value="java"/>
               	    <property name="sonar.sources" value="src/main/java"/>
               	    <property name="sonar.tests" value="src/test/java"/>
-              	    <property name="sonar.java.binaries" value="E:\Eclipse\com.sonarqubecloud.maven\target\classes\sonar\com\sonarqubecloud\maven"/>
+              	    <property name="sonar.java.binaries" value="C:\Users\ac289\git\KovairDevOpsDemoProject\src\main\java\com\kovair\devops"/>
               	    <property name="sonar.sourceEncoding" value="UTF-8"/>
     <path id="Maven Dependencies.libraryclasspath">
         <pathelement location="../../.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.8.1/jackson-databind-2.8.1.jar"/>
@@ -102,4 +103,15 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
+              	<target name="sonar" depends="build-project">
+              	              <taskdef resource="org/sonar/ant/antlib.xml" uri="antlib:org.sonar.ant">
+              	         
+              	                  <!-- Update the following line, or put the "sonar-ant-task-*.jar" file in your "$HOME/.ant/lib" folder -->
+              	                  <classpath path="C:\eclipse-jee-luna-R-win32-x86_64\eclipse\plugins\org.apache.ant_1.9.2.v201404171502\lib\sonarqube-ant-task-2.7.0.1612.jar"/>
+              	              </taskdef>
+              	         
+              	              <!-- Execute Sonar -->
+              	              <sonar:sonar/>
+              	              <!--sonarns:sonar xmlns:sonarns="antlib:org.sonar.ant" /-->
+              	          </target>
 </project>
