@@ -86,7 +86,7 @@ devOpsService.factory('devOpsService', function ($http) {
            	        "Department": "Software Engineer"
            	    }
        	];
-//comment\\commented by anshu
+
 		$employee = [];
 	
 		return $employee
