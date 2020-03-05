@@ -62,7 +62,7 @@ devOpsService.factory('devOpsService', function ($http) {
            	        "Company": "Kovair",
            	        "Date of Joining": "20/09/2010",
            	        "Department": "ALM Developement"
-           	    },
+           	    },//comment added
            	    {
            	        "First Name": "Scott",
            	        "Last Name": "Allen",
@@ -86,7 +86,7 @@ devOpsService.factory('devOpsService', function ($http) {
            	        "Department": "Software Engineer"
            	    }
        	];
-		 //commented by Anshu
+	
 		$employee = [];
 	
 		return $employee
