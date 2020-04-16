@@ -33,4 +33,4 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	}
 	
 	
-}//commit for defect id 10
+}//commit for defect id 9
