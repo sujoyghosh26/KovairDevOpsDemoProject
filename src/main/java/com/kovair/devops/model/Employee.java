@@ -1,4 +1,4 @@
-444package com.kovair.devops.model;
+package com.kovair.devops.model;
 
 public class Employee {
 	private String firstName;
