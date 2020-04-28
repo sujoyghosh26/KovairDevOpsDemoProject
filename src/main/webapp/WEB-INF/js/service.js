@@ -87,10 +87,10 @@ devOpsService.factory('devOpsService', function ($http) {
            	    }
        	];
 	
-		//$employee = [];
+		$employee = [];
 	
 		return $employee;
-		//abcdsg
+	
 	}
 	
 	return devOpsDemoAPI;
