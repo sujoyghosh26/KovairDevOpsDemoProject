@@ -88,7 +88,7 @@ devOpsService.factory('devOpsService', function ($http) {
        	];
 	
 		$employee = [];
-		//abcd
+		
 	
 		return $employee;
 	         
