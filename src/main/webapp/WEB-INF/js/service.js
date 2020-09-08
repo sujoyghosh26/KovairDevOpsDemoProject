@@ -62,7 +62,7 @@ devOpsService.factory('devOpsService', function ($http) {
            	        "Company": "Kovair",
            	        "Date of Joining": "20/09/2010",
            	        "Department": "ALM Developement"
-           	    },
+           	    },//commented
            	    {
            	        "First Name": "Scott",
            	        "Last Name": "Allen",
