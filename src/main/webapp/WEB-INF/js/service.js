@@ -62,7 +62,7 @@ devOpsService.factory('devOpsService', function ($http) {
            	        "Company": "Kovair",
            	        "Date of Joining": "20/09/2010",
            	        "Department": "ALM Developement"
-           	    },//commented commit 232
+           	    },//commented commit 2
            	    {
            	        "First Name": "Scott",
            	        "Last Name": "Allen",
