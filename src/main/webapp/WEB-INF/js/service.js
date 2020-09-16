@@ -70,7 +70,7 @@ devOpsService.factory('devOpsService', function ($http) {
            	        "Date of Joining": "21/10/2009",
            	        "Department": "ALM Developement"
            	    },
-           	    //comment added 233 mk
+           	    //comment added
            	    {
            	        "First Name": "Soumonil",
            	        "Last Name": "Roy Chowdhury",
@@ -87,7 +87,7 @@ devOpsService.factory('devOpsService', function ($http) {
            	    }
        	];
 	
-		$employee = [];
+		//$employee = [];
 		
 	
 		return $employee;
