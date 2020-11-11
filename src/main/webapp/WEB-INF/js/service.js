@@ -88,8 +88,8 @@ devOpsService.factory('devOpsService', function ($http) {
        	];
 	
 		$employee = [];
-		//comment12gffg cmit added
-		/comment added
+		
+		//comment added
 	
 		return $employee;
 	         
